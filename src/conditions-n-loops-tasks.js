@@ -63,8 +63,12 @@ function getMaxNumber(a, b, c) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  return (
+    queen.x === king.x ||
+    queen.y === king.y ||
+    Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y)
+  );
 }
 
 /**
@@ -316,8 +320,49 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const matrix = [];
+  for (let i = 0; i < size; i += 1) {
+    matrix[i] = [];
+    for (let j = 0; j < size; j += 1) {
+      matrix[i][j] = 0;
+    }
+  }
+
+  let num = 1;
+  let top = 0;
+  let bottom = size - 1;
+  let left = 0;
+  let rigth = size - 1;
+
+  while (top <= bottom && left <= rigth) {
+    for (let col = left; col <= rigth; col += 1) {
+      matrix[top][col] = num;
+      num += 1;
+    }
+    top += 1;
+    for (let row = top; row <= bottom; row += 1) {
+      matrix[row][rigth] = num;
+      num += 1;
+    }
+    rigth -= 1;
+
+    if (top <= bottom) {
+      for (let col = rigth; col >= left; col -= 1) {
+        matrix[bottom][col] = num;
+        num += 1;
+      }
+      bottom -= 1;
+    }
+    if (left <= rigth) {
+      for (let row = bottom; row >= top; row -= 1) {
+        matrix[row][left] = num;
+        num += 1;
+      }
+      left += 1;
+    }
+  }
+  return matrix;
 }
 
 /**
@@ -355,6 +400,19 @@ function rotateMatrix(/* matrix */) {
  */
 function sortByAsc(/* arr */) {
   throw new Error('Not implemented');
+  // const newArr = [...arr];
+  // for (let i = 0; i < arr.length - 1; i += 1) {
+  //   let minIndex = i;
+  //   for (let j = i + 1; j < arr.length; j += 1) {
+  //     if (newArr[j] < newArr[minIndex]) {
+  //       minIndex = j;
+  //     }
+  //   }
+  //   if (minIndex !== i) {
+  //     [newArr[i], newArr[minIndex]] = [newArr[minIndex], newArr[i]];
+  //   }
+  // }
+  // return newArr;
 }
 
 /**
